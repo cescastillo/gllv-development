@@ -25,7 +25,7 @@ st.write("En el panel lateral de la aplicación encontrarás un menú desplegabl
 st.write("")
 st.write("Paso 2: Cargar el archivo de Datos")
 st.write("Debajo del menú de selección de impuesto, verás un botón que dice Carga el archivo. Aquí deberás subir el archivo de datos financieros. La aplicación acepta archivos en formato Excel .xlsx, csv o txt ")
-st.write("Consideraciones importantes: Asegúrate de que el archivo no exceda los 10 MB, El archivo debe contener una hoja llamada Sheet1 u Hoja1, donde se encuentran los datos relevantes")
+st.write("Consideraciones importantes: Asegúrate de que el archivo no exceda los 200 MB, El archivo debe contener una hoja llamada Sheet1 u Hoja1, donde se encuentran los datos relevantes")
 st.write("")
 st.write("Paso 3: Visualización de la Predicción")
 st.write("Una vez que hayas subido el archivo y seleccionado el impuesto, la aplicación procesará los datos y aplicará el modelo correspondiente. Luego de unos segundos, se mostrará en pantalla una tabla con las siguientes columnas:")
