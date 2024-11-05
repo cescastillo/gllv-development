@@ -164,9 +164,9 @@ if isinstance(df_completo, pd.DataFrame):
  new_data = df
 
  # Convertir las columnas de los nuevos datos a los tipos correctos
- new_data['Account Description'] = new_data['Account Description'].str.strip().str.capitalize()
+ new_data['Account Description'] = new_data['Account Description'].str.strip()
  new_data['Account Number'] = new_data['Account Number'].str.strip().str.lower()
- new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description']
+ new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description'].str.lower()
  print(new_data)
 
 
