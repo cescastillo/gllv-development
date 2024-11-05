@@ -16,7 +16,7 @@ import joblib
 
 
 # Para correr el programa localmente usar streamlit run main.py
-st.set_page_config(layout="centered", page_title="Tax Code Model")
+st.set_page_config(layout="centered", page_title="Tax Code Encoder")
 
 st.title("Encode Tax Code")
 st.subheader("Instrucciones de uso")
