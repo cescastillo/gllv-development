@@ -48,7 +48,23 @@ def probablity_color(val):
     color = 'red' if val < 0.50 else 'white'
     return f'background-color: {color}'
 
-
+def classify_ctg(account_number):
+   if pd.isna(account_number) or not account_number[0].isdigit():
+      return "Unknow"
+   first_number = int(account_number[0])
+   if first_number == 1:
+      return "CA"
+   elif first_number == 2:
+      return "CL"
+   elif first_number == 3:
+      return "EQ"
+   elif first_number in [4,7]:
+      return "INC"
+   elif first_number in [5,6,8]:
+      return "EXP"
+   else:
+      return "Unknown"
+       
 #Usar para generar los modelos comprimidos
 # joblib.dump(model1,'model_1120S_compress.pkl', compress=3)
 # print("Modelo 1120S comprimido")
@@ -177,6 +193,8 @@ if isinstance(df_completo, pd.DataFrame):
  new_data['Account Description'] = new_data['Account Description'].str.strip()
  new_data['Account Number'] = new_data['Account Number'].str.strip().str.lower()
  new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description'].str.lower()
+ #Clasificar categorías
+ new_data['Category'] = new_data['Account Number'].apply(classify_ctg)   
  print(new_data)
 
 
@@ -220,7 +238,7 @@ if isinstance(df_completo, pd.DataFrame):
  new_data['Predicted Tax Code'] = predictions
  new_data['Probability'] = prediction_proba
 
- new_data_selected = new_data[['Predicted Tax Code','Account Number', 'Account Description', 'Debit', 'Credit','Probability']]
+ new_data_selected = new_data[['Predicted Tax Code','Account Number', 'Account Description', 'Debit', 'Credit','Probability', 'Category']]
 
  st.write(f"## Predicción de Tax Code {add_selectbox}")
  st.dataframe(new_data_selected.style.applymap(probablity_color, subset=['Probability']))
