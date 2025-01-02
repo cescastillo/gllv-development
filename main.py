@@ -44,6 +44,10 @@ max_file_size = 10 * 1024 * 1024 #10MB
 logoGllv = "./imgs/GLLV Logo.png"
 df_completo = None
 
+def probablity_color(val):
+    color = 'red' if val < 0.50 else 'white'
+    return f'background-color: {color}'
+
 
 #Usar para generar los modelos comprimidos
 # joblib.dump(model1,'model_1120S_compress.pkl', compress=3)
@@ -64,12 +68,12 @@ if uploaded_file is not None:
      df_completo = pd.read_excel(uploaded_file, sheet_name='Sheet1')
      print("Hoja 'Sheet1' cargada exitosamente.")
  except ValueError:
-     #Si falla, intentar con la hoja 'Hoja1'
+     #Si falla, intentar con la hoja 'Trial Balance'
      try:
-         df_completo = pd.read_excel(uploaded_file, sheet_name='Hoja1')
-         print("Hoja 'Hoja1' cargada exitosamente.")
+         df_completo = pd.read_excel(uploaded_file, sheet_name='Trial Balance')
+         print("Hoja 'Trial Balance' cargada exitosamente.")
      except ValueError:
-         raise ValueError("No se pudo encontrar 'Shee1' ni 'Hoja1' en el archivo Excel")
+         raise ValueError("No se pudo encontrar 'Shee1' ni 'Trial Balance' en el archivo Excel")
          
    
 
@@ -213,7 +217,7 @@ if isinstance(df_completo, pd.DataFrame):
  new_data_selected = new_data[['Predicted Tax Code','Account Number', 'Account Description', 'Debit', 'Credit','Probability']]
 
  st.write(f"## Predicción de Tax Code {add_selectbox}")
- st.dataframe(new_data_selected)
+ st.dataframe(new_data_selected.style.applymap(probablity_color, subset=['Probability']))
  st.success(" Se ha generado la predicción", icon="✅")
  st.text("Para obtener soporte adicional, comunícate con el desarrollador de la aplicación.")
 else:
