@@ -68,12 +68,18 @@ if uploaded_file is not None:
      df_completo = pd.read_excel(uploaded_file, sheet_name='Sheet1')
      print("Hoja 'Sheet1' cargada exitosamente.")
  except ValueError:
-     #Si falla, intentar con la hoja 'Trial Balance'
+     #Si falla, intentar con la hoja 'Hoja1'
      try:
-         df_completo = pd.read_excel(uploaded_file, sheet_name='Trial Balance')
-         print("Hoja 'Trial Balance' cargada exitosamente.")
+        df_completo = pd.read_excel(uploaded_file, sheet_name='Hoja1')
+        print("Hoja 'Hoja1' cargada exitosamente.")
      except ValueError:
-         raise ValueError("No se pudo encontrar 'Shee1' ni 'Trial Balance' en el archivo Excel")
+        #Si tambíen falla, intentar con la hoja 'Trial Balance'
+        try:
+           df_completo = pd.read_excel(uploaded_file, sheet_name='Trial Balance')
+           print("Hoja 'Trial Balance' cargada exitosamente.")
+        except ValueError:
+           #Si ninguna hoja se encuentra, lanzar un error
+           raise ValueError("No se pudo encontrar 'Sheet1', 'Hoja1' ni 'Trial Balance' en el archivo Excel")
          
    
 
