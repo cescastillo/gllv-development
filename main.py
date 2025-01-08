@@ -51,19 +51,20 @@ def probablity_color(val):
 def classify_ctg(account_number):
    if pd.isna(account_number) or not account_number[0].isdigit():
       return "Unknow"
-   first_number = int(account_number[0])
-   if first_number == 1:
-      return "CA"
-   elif first_number == 2:
-      return "CL"
-   elif first_number == 3:
-      return "EQ"
-   elif first_number in [4,7]:
-      return "INC"
-   elif first_number in [5,6,8]:
-      return "EXP"
-   else:
-      return "Unknown"
+   category_map = {
+        '1': 'CA',
+        '2': 'CL',
+        '3': 'EQ',
+        '4': 'INC',
+        '7': 'INC',
+        '5': 'EXP',
+        '6': 'EXP',
+        '8': 'EXP'
+
+   }
+   return category_map.get(account_number[0], "Unknown")
+
+
        
 #Usar para generar los modelos comprimidos
 # joblib.dump(model1,'model_1120S_compress.pkl', compress=3)
