@@ -243,7 +243,7 @@ if isinstance(df_completo, pd.DataFrame):
  new_data_filtered = new_data[new_data['Category'] != 'Unknown']
  
  # Seleccionar las columnas que se mostrarán en la tabla
- new_data_selected = new_data[['Predicted Tax Code','Account Number', 'Account Description', 'Debit', 'Credit','Probability', 'Category']]
+ new_data_selected = new_data_filtered[['Predicted Tax Code','Account Number', 'Account Description', 'Debit', 'Credit','Probability', 'Category']]
 
 
  st.write(f"## Predicción de Tax Code {add_selectbox}")
