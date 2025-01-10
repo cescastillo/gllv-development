@@ -50,7 +50,7 @@ def probablity_color(val):
 
 def classify_ctg(account_number):
    if pd.isna(account_number) or not account_number[0].isdigit():
-      return "Unknow"
+      return "Unknown"
    category_map = {
         '1': 'CA',
         '2': 'CL',
@@ -239,7 +239,12 @@ if isinstance(df_completo, pd.DataFrame):
  new_data['Predicted Tax Code'] = predictions
  new_data['Probability'] = prediction_proba
 
+ #Filtrar las filas que tienen categoría distinta a Unknown
+ new_data_filtered = new_data[new_data['Category'] != 'Unknown']
+ 
+ # Seleccionar las columnas que se mostrarán en la tabla
  new_data_selected = new_data[['Predicted Tax Code','Account Number', 'Account Description', 'Debit', 'Credit','Probability', 'Category']]
+
 
  st.write(f"## Predicción de Tax Code {add_selectbox}")
  st.dataframe(new_data_selected.style.applymap(probablity_color, subset=['Probability']))
