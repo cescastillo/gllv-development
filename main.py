@@ -59,7 +59,8 @@ def classify_ctg(account_number):
         '7': 'INC',
         '5': 'EXP',
         '6': 'EXP',
-        '8': 'EXP'
+        '8': 'EXP',
+        '9' : ''
 
    }
    return category_map.get(account_number[0], "Unknown")
