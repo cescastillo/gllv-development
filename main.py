@@ -78,6 +78,9 @@ st.sidebar.title("Por favor carga el archivo y selecciona el modelo del impuesto
 add_selectbox = st.sidebar.selectbox('Selecciona el impuesto',('1120','1065','1040','1120S'))
 print(f"{add_selectbox}")
 
+add_checkbox = st.sidebar.checkbox("**Si el impuesto tiene casa de renta marque esta opción**")
+print(f"{add_checkbox}")
+
 uploaded_file = st.sidebar.file_uploader("Carga el archivo", type={"xlsx","csv","txt"})
 
 
@@ -116,10 +119,10 @@ if isinstance(df_completo, pd.DataFrame):
    return joblib.load(io.BytesIO(response.content))
  
  # URLs de Dropbox con el formato dl=1 para descarga directa
- dropbox_model1 = 'https://www.dropbox.com/scl/fi/ikzc34rqejxgtwqvjwqpm/TD-IDFmodel_1120S.pkl?rlkey=v7s2jhr80p1g4fa61t776xqde&st=9ihfjgl7&dl=1'
- dropbox_model2 = 'https://www.dropbox.com/scl/fi/uvf77fiwodtggyalcf82m/TF-IDFmodel_1120.pkl?rlkey=3h8x49cnlog9j9eyt1hpz43zq&st=6cr79321&dl=1'
- dropbox_model3 = 'https://www.dropbox.com/scl/fi/4qowk4sksqbfd4cltf90i/TF-IDFmodel_1065.pkl?rlkey=owsrnsmygrqj705n6mpvck872&st=s2r2xg5o&dl=1'
- dropbox_model4 = 'https://www.dropbox.com/scl/fi/rnffy8ax4njzftm9jrc72/TF-IDFmodel_1040.pkl?rlkey=f8y7w4fqgl0kstkh7u3742kl7&st=5gtwosyh&dl=1'
+ dropbox_model1 = 'https://www.dropbox.com/scl/fi/hnvvsxqibm18nfsuo3jq6/model_1120S-test.pkl?rlkey=kny3dx368g3zswz1utzwaf8se&st=rz5my62j&dl=1'
+ dropbox_model2 = 'https://www.dropbox.com/scl/fi/ugq51mwj8ds0evgfqwcs1/model_1120-test.pkl?rlkey=jbvxiekw3cxtzjqyq2zfz4jwv&st=74o1laoe&dl=1'
+ dropbox_model3 = 'https://www.dropbox.com/scl/fi/vwzk3okqezrf0ll3icu2k/model_1065-test.pkl?rlkey=wlugjhb84wngqydmax91okg2b&st=j9s4tidn&dl=1'
+ dropbox_model4 = 'https://www.dropbox.com/scl/fi/wizr3hz38bfbs013ywyy9/model_1040-test.pkl?rlkey=3nlo5dwsvk1wu2ty0d8u07bx3&st=fe9m4fpt&dl=1'
 
  
 
@@ -192,9 +195,18 @@ if isinstance(df_completo, pd.DataFrame):
  new_data = df
 
  # Convertir las columnas de los nuevos datos a los tipos correctos
- new_data['Account Description'] = new_data['Account Description'].str.strip()
- new_data['Account Number'] = new_data['Account Number'].str.strip().str.lower()
- new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description'].str.lower()
+ if add_checkbox is False:
+  new_data['Account Description'] = new_data['Account Description'].str.strip()
+  new_data['Account Number'] = new_data['Account Number'].str.strip().str.lower()
+  new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description'].str.lower()
+
+ elif add_checkbox is True:
+  new_data['Account Description'] = new_data['Account Description'].str.strip()
+  new_data['Account Number'] = new_data['Account Number'].str.strip().str.lower()
+  new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description'].str.lower() + " " + "renting house center"
+
+ else:
+    raise ValueError("Null")
  #Clasificar categorías
  new_data['Category'] = new_data['Account Number'].apply(classify_ctg)   
  print(new_data)
