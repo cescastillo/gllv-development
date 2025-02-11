@@ -65,7 +65,25 @@ def classify_ctg(account_number):
    }
    return category_map.get(account_number[0], "Unknown")
 
+def generate_xaccount(row, include_renting_house = False):
+   """
+    Genera la columna XAccount basada en el número de cuenta y la descripción.
+    
+    Parámetros:
+    - row: Una fila del DataFrame.
+    - include_renting_house: Si es True, agrega "renting house center" si el número de cuenta comienza con un número mayor a 3.
+    
+    Retorna:
+    - El valor de XAccount generado.
+    """
 
+   account_number = row['Account Number']
+   account_description = row['Account Description'].lower()
+
+   if include_renting_house and account_number[0].isdigit() and int(account_number[0]) >3:
+      return f"{account_number} {account_description} renting house center"
+   else:
+      return f"{account_number} {account_description}"
        
 #Usar para generar los modelos comprimidos
 # joblib.dump(model1,'model_1120S_compress.pkl', compress=3)
@@ -119,10 +137,10 @@ if isinstance(df_completo, pd.DataFrame):
    return joblib.load(io.BytesIO(response.content))
  
  # URLs de Dropbox con el formato dl=1 para descarga directa
- dropbox_model1 = 'https://www.dropbox.com/scl/fi/hnvvsxqibm18nfsuo3jq6/model_1120S-test.pkl?rlkey=kny3dx368g3zswz1utzwaf8se&st=rz5my62j&dl=1'
- dropbox_model2 = 'https://www.dropbox.com/scl/fi/ugq51mwj8ds0evgfqwcs1/model_1120-test.pkl?rlkey=jbvxiekw3cxtzjqyq2zfz4jwv&st=74o1laoe&dl=1'
- dropbox_model3 = 'https://www.dropbox.com/scl/fi/vwzk3okqezrf0ll3icu2k/model_1065-test.pkl?rlkey=wlugjhb84wngqydmax91okg2b&st=j9s4tidn&dl=1'
- dropbox_model4 = 'https://www.dropbox.com/scl/fi/wizr3hz38bfbs013ywyy9/model_1040-test.pkl?rlkey=3nlo5dwsvk1wu2ty0d8u07bx3&st=fe9m4fpt&dl=1'
+ dropbox_model1 = 'https://www.dropbox.com/scl/fi/x9xjeh65offw0y94jnphe/model_1120S-3.pkl?rlkey=p1uojw394wslib0ks3xi0h9b4&st=2fqf0ave&dl=1'
+ dropbox_model2 = 'https://www.dropbox.com/scl/fi/6qy3jkg20fc808wko484k/model_1120-3.pkl?rlkey=tnmacfvvm51dtqxm4jargi8pl&st=18zs22p5&dl=1'
+ dropbox_model3 = 'https://www.dropbox.com/scl/fi/bxad6gdo4xsh6yhqrh9w0/model_1065-3.pkl?rlkey=pf1xgter7om4kei7ujn21g9mu&st=cb4oknvi&dl=1'
+ dropbox_model4 = 'https://www.dropbox.com/scl/fi/53uaqeu4rs4spjt7318tw/model_1040-3.pkl?rlkey=sc3ltdwvfzz0gymtiqq1mwir5&st=0snujch4&dl=1'
 
  
 
@@ -203,7 +221,9 @@ if isinstance(df_completo, pd.DataFrame):
  elif add_checkbox is True:
   new_data['Account Description'] = new_data['Account Description'].str.strip()
   new_data['Account Number'] = new_data['Account Number'].str.strip().str.lower()
-  new_data['XAccount'] =  new_data['Account Number'] +" "+ new_data['Account Description'].str.lower() + " " + "renting house center"
+  new_data['XAccount'] = new_data.apply(
+   lambda row: generate_xaccount(row, include_renting_house=True), axis=1 #Llamada de la funcion generate_xaccount
+  )
 
  else:
     raise ValueError("Null")
