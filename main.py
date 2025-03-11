@@ -199,8 +199,8 @@ if isinstance(df_completo, pd.DataFrame):
  df = df_completo[columnas_deseadas].copy()
 
  # Opcional: Manejo de valores faltantes
- df['Debit'] = df['Debit'].fillna(0).round().astype(int)
- df['Credit'] = df['Credit'].fillna(0).round().astype(int)
+ df['Debit'] = df['Debit'].fillna(0)
+ df['Credit'] = df['Credit'].fillna(0)
 
  #Asegurar que 'Debit' y 'Credit' sean de tipo numérico
  df['Debit'] = pd.to_numeric(df['Debit'],errors='coerce').fillna(0).round().astype(int)
