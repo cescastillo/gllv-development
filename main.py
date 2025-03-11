@@ -203,8 +203,8 @@ if isinstance(df_completo, pd.DataFrame):
  df['Credit'] = df['Credit'].fillna(0)
 
  #Asegurar que 'Debit' y 'Credit' sean de tipo numérico
- df['Debit'] = pd.to_numeric(df['Debit'],errors='coerce').fillna(0)
- df['Credit'] = pd.to_numeric(df['Credit'],errors='coerce').fillna(0)
+ df['Debit'] = pd.to_numeric(df['Debit'],errors='coerce').fillna(0).round().astype(int)
+ df['Credit'] = pd.to_numeric(df['Credit'],errors='coerce').fillna(0).round().astype(int)
 
  df['Entity Tax'] = f"{add_selectbox}"
 
