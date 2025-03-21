@@ -116,9 +116,9 @@ if uploaded_file is not None:
         try:
            df_completo = pd.read_excel(uploaded_file, sheet_name='Trial Balance')
            print("Hoja 'Trial Balance' cargada exitosamente.")
-        except ValueError:
+        except Exception as e:
            #Si ninguna hoja se encuentra, lanzar un error
-           raise ValueError("No se pudo encontrar 'Sheet1', 'Hoja1' ni 'Trial Balance' en el archivo Excel")
+           st.error(f"No se pudo encontrar 'Sheet1', 'Hoja1' ni 'Trial Balance' en el archivo Excel: {e}")
          
    
 
