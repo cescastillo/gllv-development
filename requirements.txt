@@ -23,7 +23,7 @@ openpyxl==3.1.5
 packaging==24.1
 pandas==2.1.4
 pillow==10.4.0
-protobuf==5.28.0
+protobuf>=5.29.5
 pyarrow==14.0.2
 pydeck==0.9.1
 Pygments==2.18.0
