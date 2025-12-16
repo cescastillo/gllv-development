@@ -10,7 +10,7 @@ et-xmlfile==1.1.0
 gitdb==4.0.11
 GitPython==3.1.43
 idna==3.8
-Jinja2==3.1.4
+Jinja2==3.1.6
 joblib==1.4.2
 jsonschema==4.23.0
 jsonschema-specifications==2023.12.1
@@ -46,4 +46,5 @@ typing_extensions==4.12.2
 tzdata==2024.1
 urllib3==2.6.0
 watchdog==4.0.2
+
 
