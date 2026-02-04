@@ -179,7 +179,7 @@ if isinstance(df_completo, pd.DataFrame):
 
  elif len(df_completo.columns) == 3:
     #Seleccionar las filas que contienen los datos (a partir de la fila 3)
-    df_completo = df_completo.iloc[3:].reset_index(drop=True)
+    df_completo = df_completo.iloc[2:].reset_index(drop=True)
     df_completo.columns = ['Account Description', 'Debit', 'Credit']
 
     #Hacer split a las columnas del archivo
@@ -293,6 +293,7 @@ else:
  st.info('Siga los pasos para generar la predicción',  icon="ℹ️")
 
 st.logo(logoGllv)
+
 
 
 
