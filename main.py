@@ -161,11 +161,12 @@ if isinstance(df_completo, pd.DataFrame):
  
  
 
- #Seleccionar las filas que contienen los datos (a partir de la fila 1)
- df_completo = df_completo.iloc[1:].reset_index(drop=True)
+
+ 
  #Renombrar las columnas a los datos que tenemos
 
  if len(df_completo.columns) == 5:
+    #Seleccionar las filas que contienen los datos (a partir de la fila 1)
     df_completo = df_completo.iloc[1:].reset_index(drop=True)
     df_completo.columns =['Unnamed','Account Description','Debit','Unnamed_3','Credit']
 
@@ -177,6 +178,7 @@ if isinstance(df_completo, pd.DataFrame):
     df_completo['Account Description'] = df_completo['Account Description'].str.split('·').str[1]
 
  elif len(df_completo.columns) == 3:
+    #Seleccionar las filas que contienen los datos (a partir de la fila 3)
     df_completo = df_completo.iloc[3:].reset_index(drop=True)
     df_completo.columns = ['Account Description', 'Debit', 'Credit']
 
@@ -291,6 +293,7 @@ else:
  st.info('Siga los pasos para generar la predicción',  icon="ℹ️")
 
 st.logo(logoGllv)
+
 
 
 
